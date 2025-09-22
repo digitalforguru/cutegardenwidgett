@@ -1,45 +1,542 @@
-const flowers = [
-  // --- COMMON ---
-  { name:"Daisy", rarity:"common", waters:15, cost:50, quote:"Happiness blooms here.", fact:"Daisies are edible and often used in salads.", seedbag:"assets/seedbags/daisy-seedbag.png", seedcard:"assets/seedjournal/daisy-seed.png", stages:["seedstage","sproutstage","midgrowth","matureflower"], vase:"assets/vase/vase-daisy.png"},
-  { name:"Marigold", rarity:"common", waters:20, cost:75, quote:"Bright days ahead.", fact:"Marigolds repel certain garden pests naturally.", seedbag:"assets/seedbags/marigold-seedbag.png", seedcard:"assets/seedjournal/marigold-seed.png", stages:["seedstage","sproutstage","midgrowth","matureflower"], vase:"assets/vase/vase-marigold.png"},
-  { name:"Pansies", rarity:"common", waters:25, cost:100, quote:"Colorful hearts.", fact:"Pansies symbolize love in the language of flowers.", seedbag:"assets/seedbags/pansies-seedbag.png", seedcard:"assets/seedjournal/pansies-seed.png", stages:["seedstage","sproutstage","midgrowth","matureflower"], vase:"assets/vase/vase-pansies.png"},
-  { name:"Nasturtium", rarity:"common", waters:30, cost:125, quote:"Spicy little joys.", fact:"Nasturtium leaves and flowers are edible with a peppery taste.", seedbag:"assets/seedbags/nasturtium-seedbag.png", seedcard:"assets/seedjournal/nasturtium-seed.png", stages:["seedstage","sproutstage","midgrowth","matureflower"], vase:"assets/vase/vase-nasturtium.png"},
-  { name:"Geranium", rarity:"common", waters:35, cost:150, quote:"Blushing blooms.", fact:"Geraniums are often used for their fragrant oils.", seedbag:"assets/seedbags/geranium-seedbag.png", seedcard:"assets/seedjournal/geranium-seed.png", stages:["seedstage","sproutstage","midgrowth","matureflower"], vase:"assets/vase/vase-geranium.png"},
-  { name:"Begonia", rarity:"common", waters:40, cost:175, quote:"Gentle elegance.", fact:"Begonias can bloom indoors year-round.", seedbag:"assets/seedbags/begonia-seedbag.png", seedcard:"assets/seedjournal/begonia-seed.png", stages:["seedstage","sproutstage","midgrowth","matureflower"], vase:"assets/vase/vase-begonia.png"},
-  { name:"Sunflowers", rarity:"common", waters:45, cost:200, quote:"Follow the sun.", fact:"Sunflowers can grow to over 10 feet tall.", seedbag:"assets/seedbags/sunflowers-seedbag.png", seedcard:"assets/seedjournal/sunflowers-seed.png", stages:["seedstage","sproutstage","midgrowth","matureflower"], vase:"assets/vase/vase-sunflowers.png"},
-  { name:"Cosmos", rarity:"common", waters:50, cost:225, quote:"Delicate dreams.", fact:"Cosmos attract butterflies to the garden.", seedbag:"assets/seedbags/cosmos-seedbag.png", seedcard:"assets/seedjournal/cosmos-seed.png", stages:["seedstage","sproutstage","midgrowth","matureflower"], vase:"assets/vase/vase-cosmos.png"},
+// Variables
+const lotusPointsEl = document.getElementById("lotus-points-value");
+const gardenImage = document.getElementById("garden-image");
+const seedInventoryEl = document.getElementById("seed-inventory");
+const noSeedsText = document.getElementById("no-seeds-text");
+const streakCountEl = document.getElementById("streak-count");
 
-  // --- UNCOMMON ---
-  { name:"Bluebells", rarity:"uncommon", waters:55, cost:300, quote:"Whispering woods.", fact:"Bluebells are native to Europe and bloom in spring.", seedbag:"assets/seedbags/bluebells-seedbag.png", seedcard:"assets/seedjournal/bluebells-seed.png", stages:["seedstage","sproutstage","midgrowth","matureflower"], vase:"assets/vase/vase-bluebells.png"},
-  { name:"Snapdragons", rarity:"uncommon", waters:60, cost:350, quote:"Playful blooms.", fact:"Snapdragons can ‘snap’ open when squeezed.", seedbag:"assets/seedbags/snapdragons-seedbag.png", seedcard:"assets/seedjournal/snapdragons-seed.png", stages:["seedstage","sproutstage","midgrowth","matureflower"], vase:"assets/vase/vase-snapdragons.png"},
-  { name:"Morning Glory", rarity:"uncommon", waters:65, cost:400, quote:"New day rising.", fact:"Morning Glories open in the morning and close at night.", seedbag:"assets/seedbags/morningglory-seedbag.png", seedcard:"assets/seedjournal/morningglory-seed.png", stages:["seedstage","sproutstage","midgrowth","matureflower"], vase:"assets/vase/vase-morningglory.png"},
-  { name:"Tulips", rarity:"uncommon", waters:70, cost:450, quote:"Graceful elegance.", fact:"Tulips were once more valuable than gold in Holland.", seedbag:"assets/seedbags/tulips-seedbag.png", seedcard:"assets/seedjournal/tulips-seed.png", stages:["seedstage","sproutstage","midgrowth","matureflower"], vase:"assets/vase/vase-tulips.png"},
-  { name:"Freesia", rarity:"uncommon", waters:75, cost:500, quote:"Scent of joy.", fact:"Freesias are known for their sweet fragrance.", seedbag:"assets/seedbags/freesia-seedbag.png", seedcard:"assets/seedjournal/freesia-seed.png", stages:["seedstage","sproutstage","midgrowth","matureflower"], vase:"assets/vase/vase-freesia.png"},
-  { name:"Anemone", rarity:"uncommon", waters:80, cost:550, quote:"Gentle whispers.", fact:"Anemones are named after the Greek word for wind.", seedbag:"assets/seedbags/anemone-seedbag.png", seedcard:"assets/seedjournal/anemone-seed.png", stages:["seedstage","sproutstage","midgrowth","matureflower"], vase:"assets/vase/vase-anemone.png"},
-  { name:"Lavender", rarity:"uncommon", waters:90, cost:600, quote:"Peace in purple.", fact:"Lavender is used for calming essential oils.", seedbag:"assets/seedbags/lavender-seedbag.png", seedcard:"assets/seedjournal/lavender-seed.png", stages:["seedstage","sproutstage","midgrowth","matureflower"], vase:"assets/vase/vase-lavender.png"},
-  { name:"Daffodils", rarity:"uncommon", waters:100, cost:650, quote:"Rebirth and renewal.", fact:"Daffodils symbolize new beginnings in spring.", seedbag:"assets/seedbags/daffodils-seedbag.png", seedcard:"assets/seedjournal/daffodils-seed.png", stages:["seedstage","sproutstage","midgrowth","matureflower"], vase:"assets/vase/vase-daffodils.png"},
+const waterBtn = document.getElementById("water-btn");
+const harvestBtn = document.getElementById("harvest-btn");
+const buyWaterBtn = document.getElementById("buy-water-btn");
 
-  // --- RARE ---
-  { name:"Cherry Blossom", rarity:"rare", waters:90, cost:800, quote:"Ephemeral beauty.", fact:"Cherry blossoms bloom for only a few weeks each year.", seedbag:"assets/seedbags/cherryblossom-seedbag.png", seedcard:"assets/seedjournal/cherryblossom-seed.png", stages:["seedstage","sproutstage","midgrowth","matureflower"], vase:"assets/vase/vase-cherryblossom.png"},
-  { name:"Lily", rarity:"rare", waters:100, cost:900, quote:"Purity and elegance.", fact:"Lilies come in over 100 species worldwide.", seedbag:"assets/seedbags/lily-seedbag.png", seedcard:"assets/seedjournal/lily-seed.png", stages:["seedstage","sproutstage","midgrowth","matureflower"], vase:"assets/vase/vase-lily.png"},
-  { name:"Rose", rarity:"rare", waters:110, cost:1000, quote:"Love’s emblem.", fact:"Roses have been cultivated for over 5000 years.", seedbag:"assets/seedbags/rose-seedbag.png", seedcard:"assets/seedjournal/rose-seed.png", stages:["seedstage","sproutstage","midgrowth","matureflower"], vase:"assets/vase/vase-rose.png"},
-  { name:"Dahlia", rarity:"rare", waters:120, cost:1100, quote:"Bold and bright.", fact:"Dahlias are native to Mexico.", seedbag:"assets/seedbags/dahlia-seedbag.png", seedcard:"assets/seedjournal/dahlia-seed.png", stages:["seedstage","sproutstage","midgrowth","matureflower"], vase:"assets/vase/vase-dahlia.png"},
-  { name:"Hibiscus", rarity:"rare", waters:130, cost:1200, quote:"Tropical beauty.", fact:"Hibiscus flowers are used to make herbal teas.", seedbag:"assets/seedbags/hibiscus-seedbag.png", seedcard:"assets/seedjournal/hibiscus-seed.png", stages:["seedstage","sproutstage","midgrowth","matureflower"], vase:"assets/vase/vase-hibiscus.png"},
-  { name:"Peonies", rarity:"rare", waters:140, cost:1300, quote:"Full blooms of luck.", fact:"Peonies can live over 100 years.", seedbag:"assets/seedbags/peonies-seedbag.png", seedcard:"assets/seedjournal/peonies-seed.png", stages:["seedstage","sproutstage","midgrowth","matureflower"], vase:"assets/vase/vase-peonies.png"},
-  { name:"Gardenia", rarity:"rare", waters:150, cost:1400, quote:"Fragrant whispers.", fact:"Gardenias are native to tropical regions of Africa and Asia.", seedbag:"assets/seedbags/gardenia-seedbag.png", seedcard:"assets/seedjournal/gardenia-seed.png", stages:["seedstage","sproutstage","midgrowth","matureflower"], vase:"assets/vase/vase-gardenia.png"},
-  { name:"Orchid", rarity:"rare", waters:160, cost:1500, quote:"Exotic elegance.", fact:"Orchids are one of the largest plant families with over 25,000 species.", seedbag:"assets/seedbags/orchid-seedbag.png", seedcard:"assets/seedjournal/orchid-seed.png", stages:["seedstage","sproutstage","midgrowth","matureflower"], vase:"assets/vase/vase-orchid.png"},
+const seedJournalBtn = document.getElementById("seed-journal-btn");
+const buySeedListBtn = document.getElementById("buy-seed-list-btn");
+const seedJournalPopup = document.getElementById("seed-journal-popup");
+const buySeedsPopup = document.getElementById("buy-seeds-popup");
+const closeJournalBtn = document.getElementById("close-journal-btn");
+const closeBuySeedsBtn = document.getElementById("close-buy-seeds-btn");
 
-  // --- EPIC SEASONAL ---
-  { name:"Dandelion Summer", rarity:"epic", waters:150, cost:2000, quote:"Sunny cheer.", fact:"Dandelions are edible and great for pollinators.", seedbag:"assets/seedbags/dandelion-seedbag.png", seedcard:"assets/seedjournal/dandelion-seed.png", stages:["seedstage","sproutstage","midgrowth","matureflower"], vase:"assets/vase/vase-dandelion.png"},
-  { name:"Maple Sapling Fall", rarity:"epic", waters:165, cost:2200, quote:"Golden whispers.", fact:"Japanese maples have delicate leaves that turn bright red in fall.", seedbag:"assets/seedbags/maple-seedbag.png", seedcard:"assets/seedjournal/maple-seed.png", stages:["seedstage","sproutstage","midgrowth","matureflower"], vase:"assets/vase/vase-maple.png"},
-  { name:"Hellebore Winter", rarity:"epic", waters:180, cost:2400, quote:"Snow-kissed bloom.", fact:"Hellebores bloom in winter and are frost-hardy.", seedbag:"assets/seedbags/hellebore-seedbag.png", seedcard:"assets/seedjournal/hellebore-seed.png", stages:["seedstage","sproutstage","midgrowth","matureflower"], vase:"assets/vase/vase-hellebore.png"},
-  { name:"Iris Spring", rarity:"epic", waters:195, cost:2600, quote:"Fresh beginnings.", fact:"Irises symbolize hope and wisdom.", seedbag:"assets/seedbags/iris-seedbag.png", seedcard:"assets/seedjournal/iris-seed.png", stages:["seedstage","sproutstage","midgrowth","matureflower"], vase:"assets/vase/vase-iris.png"},
+const seedJournalCard = document.getElementById("seed-journal-card");
+const prevSeedBtn = document.getElementById("prev-seed-btn");
+const nextSeedBtn = document.getElementById("next-seed-btn");
 
-  // --- LEGENDARY HOLIDAY ---
-  { name:"Bleeding Hearts", rarity:"legendary", waters:210, cost:2800, quote:"Love blooms eternal.", fact:"Bleeding hearts are perennial shade plants.", seedbag:"assets/seedbags/bleedinghearts-seedbag.png", seedcard:"assets/seedjournal/bleedinghearts-seed.png", stages:["seedstage","sproutstage","midgrowth","matureflower"], vase:"assets/vase/vase-bleedinghearts.png"},
-  { name:"Shamrock", rarity:"legendary", waters:225, cost:3000, quote:"Luck is growing.", fact:"Shamrocks are associated with good fortune in Irish folklore.", seedbag:"assets/seedbags/shamrock-seedbag.png", seedcard:"assets/seedjournal/shamrock-seed.png", stages:["seedstage","sproutstage","midgrowth","matureflower"], vase:"assets/vase/vase-shamrock.png"},
-  { name:"Ipheion", rarity:"legendary", waters:250, cost:5000, quote:"Stars of summer nights.", fact:"Ipheion flowers are small, star-shaped spring bloomers.", seedbag:"assets/seedbags/ipheion-seedbag.png", seedcard:"assets/seedjournal/ipheion-seed.png", stages:["seedstage","sproutstage","midgrowth","matureflower"], vase:"assets/vase/vase-ipheion.png"},
-  { name:"Poinsettia", rarity:"legendary", waters:300, cost:5500, quote:"Festive cheer blooms.", fact:"Poinsettias are native to Mexico and bloom in winter.", seedbag:"assets/seedbags/poinsettia-seedbag.png", seedcard:"assets/seedjournal/poinsettia-seed.png", stages:["seedstage","sproutstage","midgrowth","matureflower"], vase:"assets/vase/vase-poinsettia.png"},
-  { name:"Tacca Bat", rarity:"legendary", waters:350, cost:6000, quote:"Spooky surprises grow here.", fact:"Tacca bat flowers are unique and resemble bats in flight.", seedbag:"assets/seedbags/taccabat-seedbag.png", seedcard:"assets/seedjournal/taccabat-seed.png", stages:["seedstage","sproutstage","midgrowth","matureflower"], vase:"assets/vase/vase-taccabat.png"}
-];
+const popupMessage = document.getElementById("popup-message");
+
+const vaseCollectionEl = document.getElementById("vase-collection");
+
+const themeDots = document.querySelectorAll(".theme-dot");
+const gardenWidget = document.getElementById("garden-widget");
+const vaseWidget = document.getElementById("vase-widget");
+const STORAGE_KEY = "cuteGardenState";
+
+function saveState() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+}
+
+function loadState() {
+  const savedState = localStorage.getItem(STORAGE_KEY);
+  if (savedState) {
+    const parsed = JSON.parse(savedState);
+
+    // Copy stored properties back into the state object
+    Object.assign(state, parsed);
+
+    // For nested objects like seedInventory, deep copy might be needed if mutated
+    if (parsed.seedInventory) {
+      state.seedInventory = {...parsed.seedInventory};
+    }
+    if (parsed.harvestedFlowers) {
+      state.harvestedFlowers = [...parsed.harvestedFlowers];
+    }
+  }
+}
+function updateStreak() {
+  streakCountEl.textContent = state.streak;
+
+  // Also update streak display near lotus points in header
+  let streakDisplay = document.querySelector(".streak-display");
+  if (!streakDisplay) {
+    streakDisplay = document.createElement("span");
+    streakDisplay.className = "streak-display";
+    streakDisplay.style.marginLeft = "0.6rem";
+    streakDisplay.style.fontSize = "0.8rem";
+    streakDisplay.style.color = "var(--primary-color)";
     
+    const header = document.querySelector(".widget-header");
+    if (header) {
+      header.appendChild(streakDisplay);
+    }
+  }
+  streakDisplay.textContent = `daily login streak: ${state.streak} 𖤣.𖥧.𖡼.⚘`;
+}function updateLotusPoints() {
+  lotusPointsEl.textContent = state.lotusPoints;
+  saveState();
+}
+// Asset & Data Setup
+const seeds = [
+  "bluebells", "lily", "marigold", "daisy", "sunflower", "rose",
+  "snapdragons", "peonies", "pansies", "cherryblossom", "lavender", "tulip" 
+];
+
+// Store for game state
+const state = {
+  lotusPoints: 20,
+  streak: 0,
+  currentFlower: null,
+  flowerStage: "seedstage",
+  harvestedFlowers: [],
+  seedInventory: {},
+  seedJournalIndex: 0,
+  theme: "pink",
+
+  lastLoginDate: null  // <-- add this here
+};
+
+// Initialize seed inventory with 0 seeds
+seeds.forEach(seed => state.seedInventory[seed] = 0);
+function updateDailyStreak() {
+  const today = new Date().toDateString();
+
+  // First-time login or no previous date saved
+  if (!state.lastLoginDate) {
+    state.streak = 1;
+    state.lastLoginDate = today;
+    saveState();
+    updateStreak();
+    return;
+  }
+
+  if (state.lastLoginDate === today) {
+    // Already logged in today, do nothing
+    return;
+  }
+
+  const lastDate = new Date(state.lastLoginDate);
+  const diffTime = new Date(today) - lastDate;
+  const diffDays = diffTime / (1000 * 60 * 60 * 24);
+
+  if (diffDays === 1) {
+    // Consecutive day: increment streak
+    state.streak++;
+  } else {
+    // Missed day(s): reset streak
+    state.streak = 1;
+  }
+
+  state.lastLoginDate = today;
+  saveState();
+  updateStreak();
+}
+// Utility function: update lotus points display
+function updateLotusPoints() {
+  lotusPointsEl.textContent = state.lotusPoints;
+}
+
+// Utility function: update streak display
+function updateStreak() {
+  streakCountEl.textContent = state.streak;
+}
+
+// Utility: update garden image
+function updateGardenImage() {
+  if (!state.currentFlower) {
+    gardenImage.src = "assets/garden/vacant.png";
+    gardenImage.alt = "empty garden";
+  } else {
+    const stage = state.flowerStage;
+    const imgPath = `assets/flowers/${state.currentFlower}-${stage}.png`;
+    gardenImage.src = imgPath;
+    gardenImage.alt = `${state.currentFlower} at ${stage.replace("stage", "")}`;
+  }
+}
+
+// Update seed inventory display
+function updateSeedInventory() {
+  seedInventoryEl.innerHTML = "";
+  let hasSeeds = false;
+  seeds.forEach(seed => {
+    const count = state.seedInventory[seed];
+    if (count > 0) {
+      hasSeeds = true;
+      const seedDiv = document.createElement("div");
+      seedDiv.className = "seed-item";
+      seedDiv.setAttribute("tabindex", "0");
+      seedDiv.setAttribute("role", "listitem");
+      seedDiv.setAttribute("aria-label", `${seed} seed, count ${count}`);
+      seedDiv.dataset.seed = seed;
+
+      const img = document.createElement("img");
+      img.src = `assets/seedbags/${seed}-seedbag.png`;
+      img.alt = `${seed} seed bag`;
+      seedDiv.appendChild(img);
+
+      const label = document.createElement("span");
+      label.className = "seed-name";
+      label.textContent = `${seed} (${count})`;
+      seedDiv.appendChild(label);
+
+      seedInventoryEl.appendChild(seedDiv);
+    }
+  });
+  noSeedsText.style.display = hasSeeds ? "none" : "block";
+}
+
+// Update vase shelf display
+function updateVaseCollection() {
+  vaseCollectionEl.innerHTML = "";
+  if (state.harvestedFlowers.length === 0) {
+    const emptyMsg = document.createElement("p");
+    emptyMsg.textContent = "no harvested flowers yet";
+    emptyMsg.style.fontSize = "11px";
+    emptyMsg.style.color = "var(--primary-color)";
+    vaseCollectionEl.appendChild(emptyMsg);
+    return;
+  }
+  state.harvestedFlowers.forEach(flower => {
+    const vaseImg = document.createElement("img");
+    vaseImg.className = "vase-item";
+    vaseImg.src = `assets/vase/vase-${flower}.png`;
+    vaseImg.alt = `vase with ${flower} flower`;
+    vaseCollectionEl.appendChild(vaseImg);
+  });
+}
+
+// Show popup message with auto hide
+function showPopupMessage(message) {
+  popupMessage.textContent = message;
+  popupMessage.classList.add("visible");
+  setTimeout(() => {
+    popupMessage.classList.remove("visible");
+  }, 2500);
+}
+
+// Plant seed handler
+function plantSeed(seedName) {
+  if (state.seedInventory[seedName] > 0) {
+    state.currentFlower = seedName;
+    state.flowerStage = "seedstage";
+    state.seedInventory[seedName]--;
+    updateGardenImage();
+    updateSeedInventory();
+    showPopupMessage(`planted ${seedName} seed 🌱`);
+  } else {
+    showPopupMessage(`no ${seedName} seeds available`);
+  }
+}
+
+// Water flower handler
+function waterFlower() {
+  if (!state.currentFlower) {
+    showPopupMessage("plant a seed first 🌱");
+    return;
+  }
+  const stages = ["seedstage", "sproutstage", "midgrowth", "matureflower"];
+  let currentIndex = stages.indexOf(state.flowerStage);
+  if (currentIndex < stages.length - 1) {
+    state.flowerStage = stages[currentIndex + 1];
+    updateGardenImage();
+    showPopupMessage(`your ${state.currentFlower} grew! 🌸`);
+  } else {
+    showPopupMessage("flower is already mature 🌼");
+  }
+}
+
+// Harvest flower handler
+function harvestFlower() {
+  if (!state.currentFlower) {
+    showPopupMessage("plant and grow a flower first 🌱");
+    return;
+  }
+  if (state.flowerStage !== "matureflower") {
+    showPopupMessage("flower is not mature yet 🌸");
+    return;
+  }
+  // Add to harvested
+  if (!state.harvestedFlowers.includes(state.currentFlower)) {
+    state.harvestedFlowers.push(state.currentFlower);
+  }
+  // Add lotus points for harvest
+  state.lotusPoints += 5;
+  updateLotusPoints();
+
+  showPopupMessage(`harvested ${state.currentFlower} 🌼 +5 points`);
+
+  // Reset garden
+  state.currentFlower = null;
+  state.flowerStage = "seedstage";
+  updateGardenImage();
+  updateVaseCollection();
+}
+
+// Buy water handler
+function buyWater() {
+  if (state.lotusPoints < 3) {
+    showPopupMessage("need 3 points to buy water 💧");
+    return;
+  }
+  state.lotusPoints -= 3;
+  updateLotusPoints();
+  showPopupMessage("bought water 💧");
+}
+
+// Seed inventory click handler to plant seed
+seedInventoryEl.addEventListener("click", e => {
+  const seedDiv = e.target.closest(".seed-item");
+  if (seedDiv) {
+    const seedName = seedDiv.dataset.seed;
+    plantSeed(seedName);
+  }
+});
+
+seedInventoryEl.addEventListener("keydown", e => {
+  if ((e.key === "Enter" || e.key === " ") && e.target.classList.contains("seed-item")) {
+    e.preventDefault();
+    plantSeed(e.target.dataset.seed);
+  }
+});
+
+// Button event listeners
+waterBtn.addEventListener("click", waterFlower);
+harvestBtn.addEventListener("click", harvestFlower);
+buyWaterBtn.addEventListener("click", buyWater);
+
+// Theme switching handler
+themeDots.forEach(dot => {
+  dot.addEventListener("click", () => {
+    const newTheme = dot.dataset.theme;
+    if (state.theme === newTheme) return;
+
+    state.theme = newTheme;
+
+    // Update garden and vase theme classes
+    gardenWidget.className = "";
+    gardenWidget.classList.add(`theme-${newTheme}`);
+    vaseWidget.className = "";
+    vaseWidget.classList.add(`theme-${newTheme}`);
+
+    // Update theme dots aria-checked and tabindex
+    themeDots.forEach(td => {
+      td.setAttribute("aria-checked", td.dataset.theme === newTheme ? "true" : "false");
+      td.tabIndex = td.dataset.theme === newTheme ? 0 : -1;
+    });
+  });
+});
+
+// Seed journal navigation variables
+let currentJournalIndex = 0;
+
+function openSeedJournal() {
+  seedJournalPopup.classList.remove("hidden");
+  seedJournalBtn.setAttribute("aria-expanded", "true");
+  currentJournalIndex = 0;
+  updateSeedJournalCard();
+  seedJournalPopup.focus();
+}
+
+function closeSeedJournal() {
+  seedJournalPopup.classList.add("hidden");
+  seedJournalBtn.setAttribute("aria-expanded", "false");
+  seedJournalBtn.focus();
+}
+
+function updateSeedJournalCard() {
+  const flower = seeds[currentJournalIndex];
+  const imgSrc = `assets/seedjournal/${flower}-seed.png`;
+  const isLocked = state.seedInventory[flower] === 0 && !state.harvestedFlowers.includes(flower);
+  seedJournalCard.innerHTML = `
+    <img src="${isLocked ? "assets/seedjournal/locked-seed.png" : imgSrc}" alt="${flower} seed journal card" />
+    <p>${flower}</p>
+    <p>${isLocked ? "locked" : "unlocked"}</p>
+    <p>cost: 5 lotus points</p>
+  `;
+}
+
+function prevSeedJournal() {
+  if (currentJournalIndex > 0) {
+    currentJournalIndex--;
+    updateSeedJournalCard();
+  }
+}
+
+function nextSeedJournal() {
+  if (currentJournalIndex < seeds.length - 1) {
+    currentJournalIndex++;
+    updateSeedJournalCard();
+  }
+}
+
+// Buy seeds popup (simplified example)
+function openBuySeedsPopup() {
+  buySeedsPopup.classList.remove("hidden");
+  buySeedListBtn.setAttribute("aria-expanded", "true");
+  buySeedsPopup.focus();
+  renderBuySeedsList();
+}
+
+function closeBuySeedsPopup() {
+  buySeedsPopup.classList.add("hidden");
+  buySeedListBtn.setAttribute("aria-expanded", "false");
+  buySeedListBtn.focus();
+}
+
+const buySeedsListEl = document.getElementById("buy-seeds-list");
+
+function renderBuySeedsList() {
+  buySeedsListEl.innerHTML = "";
+  seeds.forEach(seed => {
+    const li = document.createElement("li");
+    li.textContent = `${seed} - 5 lotus points`;
+    li.tabIndex = 0;
+    li.dataset.seed = seed;
+    buySeedsListEl.appendChild(li);
+  });
+}
+
+// Buy seeds click handler
+buySeedsListEl.addEventListener("click", e => {
+  if (e.target.tagName === "LI") {
+    const seed = e.target.dataset.seed;
+    buySeed(seed);
+  }
+});
+buySeedsListEl.addEventListener("keydown", e => {
+  if ((e.key === "Enter" || e.key === " ") && e.target.tagName === "LI") {
+    e.preventDefault();
+    const seed = e.target.dataset.seed;
+    buySeed(seed);
+  }
+});
+
+function buySeed(seedName) {
+  if (state.lotusPoints < 5) {
+    showPopupMessage("need 5 lotus points to buy seed");
+    return;
+  }
+  state.lotusPoints -= 5;
+  state.seedInventory[seedName]++;
+  updateLotusPoints();
+  updateSeedInventory();
+  showPopupMessage(`bought 1 ${seedName} seed 🌱`);
+  closeBuySeedsPopup();
+}
+
+// Event listeners for popups close buttons
+closeJournalBtn.addEventListener("click", closeSeedJournal);
+closeBuySeedsBtn.addEventListener("click", closeBuySeedsPopup);
+
+// Open popups buttons
+seedJournalBtn.addEventListener("click", () => {
+  if (seedJournalPopup.classList.contains("hidden")) openSeedJournal();
+  else closeSeedJournal();
+});
+buySeedListBtn.addEventListener("click", () => {
+  if (buySeedsPopup.classList.contains("hidden")) openBuySeedsPopup();
+  else closeBuySeedsPopup();
+});
+
+// Seed journal navigation buttons
+prevSeedBtn.addEventListener("click", prevSeedJournal);
+nextSeedBtn.addEventListener("click", nextSeedJournal);
+
+// Keyboard navigation for popups ESC to close
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") {
+    if (!seedJournalPopup.classList.contains("hidden")) closeSeedJournal();
+    if (!buySeedsPopup.classList.contains("hidden")) closeBuySeedsPopup();
+  }
+});
+
+// --- ADDITIONS & UPDATES ONLY ---
+// Variables & DOM (add this for garden click text handler and streak display container)
+const gardenSection = document.getElementById("garden-section");
+
+
+// Track daily water usage & last water date for reset
+let dailyWaterCount = 0;
+let lastWaterDate = null;
+
+// Helper: reset daily water count if date changed
+function resetDailyWaterIfNeeded() {
+  const today = new Date().toDateString();
+  if (lastWaterDate !== today) {
+    dailyWaterCount = 0;
+    lastWaterDate = today;
+  }
+}
+
+// Garden section click handler for flower info or alert
+gardenSection.addEventListener("click", () => {
+  if (!state.currentFlower) {
+    showPopupMessage("plant seed first!");
+  } else {
+    openSeedJournal(); // Opens flower info (seed journal) on garden click
+  }
+});
+
+// Water flower handler update: add daily water limit check and reset logic
+function waterFlower() {
+  resetDailyWaterIfNeeded();
+  if (!state.currentFlower) {
+    showPopupMessage("plant a seed first 🌱");
+    return;
+  }
+  if (dailyWaterCount >= 25) {
+    showPopupMessage("daily watering limit reached 💧");
+    return;
+  }
+  const stages = ["seedstage", "sproutstage", "midgrowth", "matureflower"];
+  let currentIndex = stages.indexOf(state.flowerStage);
+  if (currentIndex < stages.length - 1) {
+    state.flowerStage = stages[currentIndex + 1];
+    updateGardenImage();
+    showPopupMessage(`your ${state.currentFlower} grew! 🌸`);
+    dailyWaterCount++;
+  } else {
+    showPopupMessage("flower is already mature 🌼");
+  }
+}
+
+// Buy seed cost increases by seed index (easy to hard flowers cost more)
+function getSeedCost(seedName) {
+  const index = seeds.indexOf(seedName);
+  if (index === -1) return 5; // fallback
+  return 5 + index * 2; // base 5 + 2 points per seed index step
+}
+
+// Update buy seeds popup rendering with dynamic costs
+function renderBuySeedsList() {
+  buySeedsListEl.innerHTML = "";
+  seeds.forEach(seed => {
+    const cost = getSeedCost(seed);
+    const li = document.createElement("li");
+    li.textContent = `${seed} - ${cost} lotus points`;
+    li.tabIndex = 0;
+    li.dataset.seed = seed;
+    buySeedsListEl.appendChild(li);
+  });
+}
+
+// Buy seed handler update to use dynamic cost
+function buySeed(seedName) {
+  const cost = getSeedCost(seedName);
+  if (state.lotusPoints < cost) {
+    showPopupMessage(`need ${cost} lotus points to buy seed`);
+    return;
+  }
+  state.lotusPoints -= cost;
+  state.seedInventory[seedName]++;
+  updateLotusPoints();
+  updateSeedInventory();
+  showPopupMessage(`bought 1 ${seedName} seed 🌱`);
+  closeBuySeedsPopup();
+}
+
+loadState();       // Load saved state first
+updateDailyStreak();  // Update streak based on last login date
+
+// Then update UI
+updateLotusPoints();
+updateStreak();
+updateGardenImage();
+updateSeedInventory();
+updateVaseCollection();
