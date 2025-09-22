@@ -1,0 +1,47 @@
+/* --- Reset & Base --- */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Poppins', sans-serif; background: #fff0f5; display: flex; justify-content: center; padding: 2rem; }
+button { cursor: pointer; border: none; outline: none; }
+
+/* --- Garden Widget --- */
+#garden-widget {
+  width: 360px; 
+  background: linear-gradient(to bottom, #fff8f0, #ffe4e1);
+  border-radius: 15px;
+  padding: 1rem;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+}
+
+/* Header */
+.widget-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+.points-streak { font-size: 0.9rem; color: #333; }
+.theme-dots button { width: 20px; height: 20px; border-radius: 50%; margin-left: 0.5rem; }
+
+/* Garden Section */
+#garden-section { width: 100%; height: 220px; background: #dff0d8; border-radius: 10px; display: flex; justify-content: center; align-items: center; margin-bottom: 1rem; }
+#garden-section img { max-height: 100%; border-radius: 10px; }
+
+/* Buttons */
+.buttons { display: flex; justify-content: space-between; margin-bottom: 1rem; }
+.buttons button { flex: 1; margin: 0 0.3rem; padding: 0.5rem; border-radius: 8px; background: #ffc0cb; color: #fff; font-weight: bold; }
+
+/* Seed Inventory */
+#seed-inventory { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; }
+.seed-item { display: flex; flex-direction: column; align-items: center; width: 60px; }
+.seed-item img { width: 50px; height: 50px; object-fit: contain; }
+
+/* Vase Collection */
+#vase-collection { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; }
+.vase-item { width: 60px; height: 80px; object-fit: contain; }
+
+/* Popup Messages */
+#popup-message { position: fixed; bottom: 1rem; left: 50%; transform: translateX(-50%); background: #ffebcd; padding: 0.5rem 1rem; border-radius: 10px; opacity: 0; transition: 0.3s; }
+#popup-message.visible { opacity: 1; }
+
+/* Popups */
+.hidden { display: none; }
+#seed-journal-popup, #buy-seeds-popup {
+  position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: 320px; background: #fff; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.25); padding: 1rem;
+}
+.nav-buttons { display: flex; justify-content: space-between; margin-top: 0.5rem; }
