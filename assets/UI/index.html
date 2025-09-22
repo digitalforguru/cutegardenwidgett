@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cute Garden Widget</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="garden-widget" class="theme-pink">
+  <!-- Header -->
+  <header class="widget-header">
+    <div class="points-streak">
+      <span id="lotus-points-value">20</span> 𖤣
+      <span id="streak-count">daily login streak: 0 𖤣.𖥧.𖡼.⚘</span>
+    </div>
+    <div class="theme-dots">
+      <button data-theme="pink" aria-checked="true"></button>
+      <button data-theme="blue" aria-checked="false"></button>
+      <button data-theme="green" aria-checked="false"></button>
+      <button data-theme="purple" aria-checked="false"></button>
+    </div>
+  </header>
+
+  <!-- Garden Section -->
+  <section id="garden-section">
+    <img id="garden-image" src="assets/garden/vacant.png" alt="empty garden">
+  </section>
+
+  <!-- Action Buttons -->
+  <div class="buttons">
+    <button id="water-btn">Water 🌱</button>
+    <button id="harvest-btn">Harvest 🌼</button>
+    <button id="buy-water-btn">Buy Water 💧</button>
+  </div>
+
+  <!-- Seed Inventory -->
+  <div id="seed-inventory" aria-label="Seed Inventory" role="list"></div>
+
+  <!-- Vase Collection -->
+  <div id="vase-collection" aria-label="Vase Collection"></div>
+
+  <!-- Seed Journal & Buy Seeds -->
+  <div class="popup-buttons">
+    <button id="seed-journal-btn">Seed Journal 📖</button>
+    <button id="buy-seed-list-btn">Buy Seeds 🛒</button>
+  </div>
+
+  <!-- Seed Journal Popup -->
+  <div id="seed-journal-popup" class="hidden" role="dialog" aria-modal="true">
+    <button id="close-journal-btn">✕</button>
+    <div id="seed-journal-card"></div>
+    <div class="nav-buttons">
+      <button id="prev-seed-btn">← Prev</button>
+      <button id="next-seed-btn">Next →</button>
+    </div>
+  </div>
+
+  <!-- Buy Seeds Popup -->
+  <div id="buy-seeds-popup" class="hidden" role="dialog" aria-modal="true">
+    <button id="close-buy-seeds-btn">✕</button>
+    <ul id="buy-seeds-list"></ul>
+  </div>
+
+  <!-- Popup Messages -->
+  <div id="popup-message"></div>
+</div>
+
+<script src="data.js"></script>
+<script src="game.js"></script>
+</body>
+</html>
