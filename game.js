@@ -1,4 +1,7 @@
 // --- DOM Elements ---
+document.addEventListener("DOMContentLoaded", () => {
+  initGame(); // call your game initialization AFTER the DOM exists
+});
 const gardenContainer = document.getElementById("garden-section");
 const lotusPointsDisplay = document.getElementById("lotus-points-value");
 const seedInventory = document.getElementById("seed-inventory");
