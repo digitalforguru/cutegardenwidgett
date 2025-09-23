@@ -2,14 +2,16 @@
 document.addEventListener("DOMContentLoaded", () => {
   initGame(); // call your game initialization AFTER the DOM exists
 });
-const gardenContainer = document.getElementById("garden-section");
-const lotusPointsDisplay = document.getElementById("lotus-points-value");
-const seedInventory = document.getElementById("seed-inventory");
-const seedJournalContainer = document.getElementById("seed-journal-card");
-const streakDisplay = document.getElementById("streak-count");
 
-const waterBtn = document.getElementById("water-btn");
-const harvestBtn = document.getElementById("harvest-btn");
+// Correct IDs to match HTML
+let gardenContainer;
+let lotusPointsDisplay;
+let seedInventory;
+let seedJournalContainer;
+let streakDisplay;
+
+let waterBtn;
+let harvestBtn;
 
 // --- Game State ---
 let lotusPoints = 0;
@@ -65,12 +67,15 @@ function getExtraPoints(rarity) {
 }
 
 function updateLotusPoints() {
-  lotusPointsDisplay.textContent = lotusPoints;
-  saveState();
+  if (lotusPointsDisplay) {
+    lotusPointsDisplay.textContent = lotusPoints;
+    saveState();
+  }
 }
 
 function showPopup(message) {
   const popup = document.getElementById("popup-message");
+  if (!popup) return;
   popup.textContent = message;
   popup.classList.remove("hidden");
   setTimeout(() => popup.classList.add("hidden"), 2000);
@@ -115,7 +120,7 @@ function createFlowerElement(flowerObj) {
       if (flowerObj.waters === 0 && currentStage < stageKeys.length - 1) {
         currentStage++;
         img.src = flowerObj.stages[stageKeys[currentStage]];
-        flowerObj.waters = flowerObj.waters === 0 ? flowerObj.waters : flowerObj.waters; // keep waters if not finished
+        flowerObj.waters = flowerObj.waters === 0 ? flowerObj.waters : flowerObj.waters;
       }
       if (currentStage === stageKeys.length - 1 && flowerObj.waters === 0) {
         lotusPoints += flowerObj.cost + getExtraPoints(flowerObj.rarity);
@@ -132,6 +137,7 @@ function createFlowerElement(flowerObj) {
 }
 
 function renderGarden() {
+  if (!gardenContainer) return;
   gardenContainer.innerHTML = "";
   garden.forEach(flower => {
     const el = createFlowerElement(flower);
@@ -141,6 +147,7 @@ function renderGarden() {
 
 // --- Seed Inventory Functions ---
 function renderSeedInventory() {
+  if (!seedInventory) return;
   seedInventory.innerHTML = "";
   if (inventory.length === 0) {
     seedInventory.textContent = "No seeds yet";
@@ -148,6 +155,7 @@ function renderSeedInventory() {
   }
   inventory.forEach(seedName => {
     const seed = flowers.find(f => f.name === seedName);
+    if (!seed) return;
     const btn = document.createElement("button");
     btn.classList.add("seed-btn");
     btn.style.borderColor = getRarityColor(seed.rarity);
@@ -173,6 +181,7 @@ function plantFlower(name) {
 
 // --- Seed Journal ---
 function renderSeedJournal() {
+  if (!seedJournalContainer) return;
   seedJournalContainer.innerHTML = "";
   flowers.forEach(flower => {
     const card = document.createElement("div");
@@ -201,11 +210,21 @@ function updateDailyStreak() {
     lastLogin = today;
     saveState();
   }
-  streakDisplay.textContent = dailyStreak;
+  if (streakDisplay) streakDisplay.textContent = dailyStreak;
 }
 
 // --- Initialize Game ---
 function initGame() {
+  // assign DOM elements AFTER DOM is loaded
+  gardenContainer = document.getElementById("garden-container");
+  lotusPointsDisplay = document.getElementById("lotus-points-value");
+  seedInventory = document.getElementById("seed-inventory");
+  seedJournalContainer = document.getElementById("seed-journal");
+  streakDisplay = document.getElementById("streak-display");
+
+  waterBtn = document.getElementById("water-btn");
+  harvestBtn = document.getElementById("harvest-btn");
+
   loadState();
   updateLotusPoints();
   renderGarden();
@@ -213,5 +232,3 @@ function initGame() {
   renderSeedJournal();
   updateDailyStreak();
 }
-
-initGame();
