@@ -504,3 +504,4 @@ const flowers = [
   },
   seedbag: "assets/seedbags/taccabathalloween-seedbag.png"
 }
+];
